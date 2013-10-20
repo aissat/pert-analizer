@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * @(#) PERTChart.java
  */
@@ -5,12 +7,26 @@ public class PERTChart
 {
 	private String name;
 	
-	private PERTFileParser parser;
+	private static PERTFileParser parser;
 	
 	private DotGraphviz graph;
 	
+	private static List<Task> tasks;
 	
-public DotGraphviz calculateCriticalPath( )
+	public static void main(String[] args) {
+		
+		try{
+			
+			parser = new PERTFileParser(args[0]);
+			tasks = parser.getTasks();
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			
+		}
+		
+	}
+	
+	public DotGraphviz calculateCriticalPath( )
 	{
 		return null;
 	}

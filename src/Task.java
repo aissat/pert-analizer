@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * @(#) Task.java
  */
@@ -9,6 +11,8 @@ public class Task
 	
 	
 	private java.util.List<Task> predecessors;
+	
+	
 	
 	public void setDuration( int duration )
 	{
@@ -47,6 +51,10 @@ public String getLabel( )
 	public void addPredecessor( Task task )
 	{
 		
+	}
+	
+	public void addPredecessors(List<Task> tasks){
+		predecessors = tasks;
 	}
 	
 	
