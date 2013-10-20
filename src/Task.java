@@ -7,6 +7,9 @@ public class Task
 	
 	private int duration;
 	
+	
+	private java.util.List<Task> predecessors;
+	
 	public void setDuration( int duration )
 	{
 		this.duration=duration;
@@ -17,13 +20,34 @@ public class Task
 		return duration;
 	}
 	
+	
+public String getLabel( )
+	{
+		return label;
+	}
+
 	public void setLabel( String label )
 	{
 		this.label=label;
 	}
 	
-	public String getLabel( )
+	
+	public void setPredecessors( java.util.List<Task> predecessors )
 	{
-		return label;
+		this.predecessors=predecessors;
 	}
+	
+	
+	public java.util.List<Task> getPredecessors( )
+	{
+		return predecessors;
+	}
+	
+	
+	public void addPredecessor( Task task )
+	{
+		
+	}
+	
+	
 }

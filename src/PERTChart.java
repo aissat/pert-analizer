@@ -9,9 +9,8 @@ public class PERTChart
 	
 	private DotGraphviz graph;
 	
-	private java.util.Collection<Dependency> dependancies;
 	
-	public DotGraphviz calculateCriticalPath( )
+public DotGraphviz calculateCriticalPath( )
 	{
 		return null;
 	}
@@ -31,15 +30,34 @@ public class PERTChart
 		
 	}
 
-	public void setDependancies( java.util.Collection<Dependency> dependancies )
+
+	public Task getFirstTask( )
 	{
-		this.dependancies=dependancies;
+		return null;
 	}
 	
 	
-	public java.util.Collection<Dependency> getDependancies( )
+	public void setTasks( Task tasks )
 	{
-		return dependancies;
+		
+	}
+	
+	
+	public Task getTasks( )
+	{
+		return null;
+	}
+	
+	
+	public void addTask( Task task )
+	{
+		
+	}
+	
+	
+	public Task findTask( String taskLabel )
+	{
+		return null;
 	}
 	
 	
