@@ -8,9 +8,9 @@ public class PERTFileParser
 		
 	}
 	
-	public void validateFile( )
+	public Boolean isValid( )
 	{
-		
+		return true;
 	}
 
 }

@@ -1,5 +1,3 @@
-import java.util.Collection;
-
 /**
  * @(#) PERTChart.java
  */
@@ -11,7 +9,7 @@ public class PERTChart
 	
 	private DotGraphviz graph;
 	
-	private Collection dependancies;
+	private java.util.Collection<Dependency> dependancies;
 	
 	public DotGraphviz calculateCriticalPath( )
 	{
@@ -32,4 +30,17 @@ public class PERTChart
 	{
 		
 	}
+
+	public void setDependancies( java.util.Collection<Dependency> dependancies )
+	{
+		this.dependancies=dependancies;
+	}
+	
+	
+	public java.util.Collection<Dependency> getDependancies( )
+	{
+		return dependancies;
+	}
+	
+	
 }
