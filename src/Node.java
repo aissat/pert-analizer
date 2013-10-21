@@ -4,11 +4,20 @@
 public class Node
 {
 	private String label;
+	private int id;
 	
 	private Color color = Color.WHITE;
 	
 	private FontStyle fontStyle = FontStyle.NORMAL;
 	
+	public Node(int id){
+		this.id = id; 
+	}
+	
+	public int getId() {
+		return id;
+	}
+
 	public void setColor( Color color )
 	{
 		this.color=color;

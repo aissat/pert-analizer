@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 /**
  * @(#) Task.java
  */
@@ -10,6 +12,10 @@ public class Task
 	
 	private java.util.List<Task> predecessors;
 	
+	public Task(){
+		predecessors = new LinkedList<>();
+	}
+	
 	public void setDuration( int duration )
 	{
 		this.duration=duration;
@@ -21,7 +27,7 @@ public class Task
 	}
 	
 	
-public String getLabel( )
+	public String getLabel( )
 	{
 		return label;
 	}
@@ -46,7 +52,7 @@ public String getLabel( )
 	
 	public void addPredecessor( Task task )
 	{
-		
+		predecessors.add(task);
 	}
 	
 	
