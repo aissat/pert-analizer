@@ -1,6 +1,4 @@
-
-import java.util.LinkedList;
-import java.util.List;
+import java.net.URL;
 
 
 public class Main {
@@ -8,10 +6,9 @@ public class Main {
 	public static void main(String ... args){
 		
 		try{
-			String filePath = args[0];
+			String filePath = "D:\\tartuUniversity\\tasks.txt";//args[0];
 			PERTChart chart = new PERTChart(filePath);
-			String [] pathParts = filePath.split("\\");
-			chart.calculateCriticalPath().generateFile(pathParts[pathParts.length - 1]);
+			chart.calculateCriticalPath().generateFile(filePath.substring(0, filePath.lastIndexOf("\\")));
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 			

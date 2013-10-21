@@ -1,13 +1,8 @@
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * @(#) DotGraphviz.java
@@ -30,22 +25,16 @@ public class DotGraphviz
 		for (Node node: nodes){
 			String color;
 			switch (node.getColor()){
-				case GREY: color = "grey"; break;
-				default: color = "white";
+				case RED: color = "red"; break;
+				default: color = "black";
 			}
-			String fontStyle;
-			switch (node.getFontStyle()){
-				case BOLD: fontStyle = "bold"; break;
-				case ITALIC: fontStyle = "italic"; break;
-				default: fontStyle = "normal";
-			}
-			graph.append(node.getId() + "[color=\"" + color + "\", style=\"" + fontStyle + "\", label=\"" + node.getLabel() + "\"]\n");
+			graph.append(node.getId() + "[color=\"" + color + "\", label=\"" + node.getLabel() + "\"]\n");
 			for (Node pred: node.getPredecessors()){
 				color = "black";
-				if (node.getColor() == Color.GREY && pred.getColor() == Color.GREY){ // change condition
+				if (node.getColor() == Color.RED && pred.getColor() == Color.RED){ // change condition
 					color = "red";
 				}
-				graph.append(pred.getId() + " -> " + node.getId() + "[color=" + color + "]\n");
+				graph.append(pred.getId() + " -> " + node.getId() + "[color=\"" + color + "\"]\n");
 			}
 		}
 		

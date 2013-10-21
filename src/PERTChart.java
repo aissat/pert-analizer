@@ -1,9 +1,5 @@
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 
 
@@ -32,9 +28,8 @@ public class PERTChart {
 		for (Task t: tasks){
 			Node n = new Node("n" + i++);
 			n.setLabel(t.getLabel());
-			if ( t.getEarlyStart() == t.getLateStart()){
-				n.setColor(Color.GREY);
-				n.setFontStyle(FontStyle.BOLD);
+			if ( t.getEarlyFinish() == t.getLateFinish()){
+				n.setColor(Color.RED);
 			}
 			nodes.put(n.getLabel(), n);
 		}

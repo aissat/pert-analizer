@@ -8,9 +8,8 @@ public class Node
 	private String label;
 	private String id;
 	
-	private Color color = Color.WHITE;
+	private Color color = Color.BLACK;
 	
-	private FontStyle fontStyle = FontStyle.NORMAL;
 	private java.util.List<Node> predecessors = new LinkedList<>();
 	
 	public java.util.List<Node> getPredecessors() {
@@ -41,16 +40,6 @@ public class Node
 	public Color getColor( )
 	{
 		return color;
-	}
-	
-	public void setFontStyle( FontStyle fontStyle )
-	{
-		this.fontStyle=fontStyle;
-	}
-	
-	public FontStyle getFontStyle( )
-	{
-		return fontStyle;
 	}
 	
 	
