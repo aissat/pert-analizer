@@ -65,7 +65,6 @@ public class Task
 		this.criticalCost = criticalCost;
 	}
 	
-	
 	public java.util.HashSet<Task> getSuccessors() {
 		return successors;
 	}
@@ -114,11 +113,7 @@ public String getLabel( )
 	
 	public void addPredecessor( Task task )
 	{
-		
-	}
-	
-	public void addPredecessors(java.util.HashSet<Task> tasks){
-		predecessors = tasks;
+		predecessors.add(task);
 	}
 	
 	

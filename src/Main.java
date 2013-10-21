@@ -8,8 +8,10 @@ public class Main {
 	public static void main(String ... args){
 		
 		try{
-			PERTChart chart = new PERTChart(args[0]);
-			chart.calculateCriticalPath().generateFile();
+			String filePath = /*args[0]*/"D:\\tartuUniversity\\tasks.txt";
+			PERTChart chart = new PERTChart(filePath);
+			String [] pathParts = filePath.split("\\");
+			chart.calculateCriticalPath().generateFile(pathParts[pathParts.length - 1]);
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 			

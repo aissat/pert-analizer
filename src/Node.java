@@ -1,20 +1,35 @@
+import java.util.LinkedList;
+
 /**
  * @(#) Node.java
  */
 public class Node
 {
 	private String label;
-	private int id;
+	private String id;
 	
 	private Color color = Color.WHITE;
 	
 	private FontStyle fontStyle = FontStyle.NORMAL;
+	private java.util.List<Node> predecessors = new LinkedList<>();
 	
-	public Node(int id){
+	public java.util.List<Node> getPredecessors() {
+		return predecessors;
+	}
+
+	public void setPredecessors(java.util.List<Node> predecessors) {
+		this.predecessors = predecessors;
+	}
+	
+	public void addPredecessor(Node predecessor) {
+		this.predecessors.add(predecessor);
+	}
+
+	public Node(String id){
 		this.id = id; 
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 

@@ -1,82 +1,52 @@
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 
 /**
  * @(#) PERTChart.java
  */
-public class PERTChart
-{
-	private String name;
-	
+public class PERTChart {
+
 	private PERTFileParser parser;
 	
 	private DotGraphviz graph;
 	
 	private java.util.List<Task> tasks = new LinkedList<>();
 	
+
 	public PERTChart(String filePath){
 		parser = new PERTFileParser();
-		try {
-			tasks = parser.parseFile(filePath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tasks = parser.parseFile(filePath);
 	}
 	
 	public DotGraphviz calculateCriticalPath( )
 	{
-		List<Task> sortedElements = new ArrayList<Task>();
-		// Not sure !!!!!
-		List<Task> unsortedElements = tasks;
-		
-		while(unsortedElements.size() != 0 ){
-			
-			Iterator<Task> i = unsortedElements.iterator();
-			
-			while(i.hasNext()){
-				Task task = i.next();
-				int critical = 0;
-				if(sortedElements.containsAll(task.getPredecessors())){
-					for (Task t : task.getPredecessors()) {
-                        if (t.getCriticalCost() > critical) {
-                            critical = t.getCriticalCost();
-                        }
-                    }
-                    task.setCriticalCost(critical + task.getDuration());
-                    // set task as calculated an remove
-                    sortedElements.add(task);
-                    unsortedElements.remove(task);
-				}
-				
+		graph = new DotGraphviz();
+		int i = 0;
+		Map<String, Node> nodes = new HashMap<>();
+		for (Task t: tasks){
+			Node n = new Node("n" + i++);
+			n.setLabel(t.getLabel());
+			if ( t.getEarlyStart() == t.getLateStart()){
+				n.setColor(Color.GREY);
+				n.setFontStyle(FontStyle.BOLD);
 			}
+			nodes.put(n.getLabel(), n);
 		}
-		
-		return null;
+		for (Task t: tasks){
+			for (Task pred: t.getPredecessors()){
+				nodes.get(t.getLabel()).addPredecessor(nodes.get(pred.getLabel()));
+			}
+			
+		}
+		graph.setNodes(new LinkedList<Node>(nodes.values()));
+		return graph;
 	}
-	
-	public void setName( String name )
-	{
-		this.name=name;
-	}
-	
-	public String getName( )
-	{
-		return name;
-	}
-	
-	public Task getFirstTask( )
-	{
-		if (tasks.isEmpty())
-			return null;
-		return tasks.get(0);
-	}
-	
 	
 	public void setTasks( java.util.List<Task> tasks )
 	{
@@ -87,23 +57,6 @@ public class PERTChart
 	public java.util.List<Task> getTasks( )
 	{
 		return tasks;
-	}
-	
-	
-	public void addTask( Task task )
-	{
-		tasks.add(task);
-	}
-	
-	
-	public Task findTask( String taskLabel )
-	{
-		for (int i = 0 ; i < tasks.size(); i++){
-			if (tasks.get(i).getLabel().equals(taskLabel))
-				return tasks.get(i);
-		}
-		return null;
-	}
-	
-	
+	}	
+
 }
