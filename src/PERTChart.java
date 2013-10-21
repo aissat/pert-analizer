@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 
 /**
  * @(#) PERTChart.java
@@ -18,7 +21,7 @@ public class PERTChart
 		try{
 			
 			parser = new PERTFileParser(args[0]);
-			tasks = parser.getTasks();
+			//tasks = parser.getTasks();
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 			
@@ -28,6 +31,34 @@ public class PERTChart
 	
 	public DotGraphviz calculateCriticalPath( )
 	{
+		
+		List<Task> sortedElements = new ArrayList<Task>();
+		// Not sure !!!!!
+		List<Task> unsortedElements = parser.getTasks();
+		
+		
+		while(unsortedElements.size() != 0 ){
+			
+			Iterator<Task> i = unsortedElements.iterator();
+			
+			while(i.hasNext()){
+				Task task = i.next();
+				int critical = 0;
+				if(sortedElements.containsAll(task.getPredecessors())){
+					for (Task t : task.getPredecessors()) {
+                        if (t.getCriticalCost() > critical) {
+                            critical = t.getCriticalCost();
+                        }
+                    }
+                    task.setCriticalCost(critical + task.getDuration());
+                    // set task as calculated an remove
+                    sortedElements.add(task);
+                    unsortedElements.remove(task);
+				}
+				
+			}
+		}
+		
 		return null;
 	}
 	
