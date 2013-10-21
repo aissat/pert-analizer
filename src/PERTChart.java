@@ -28,11 +28,12 @@ public class PERTChart {
 		Map<String, Node> nodes = new HashMap<>();
 		for (Task t: tasks){
 			Node n = new Node("n" + i++);
-			n.setLabel(t.getLabel());
+			String days = (t.getDuration() < 2 ? "day" : "days");
+			n.setLabel(t.getLabel() + " (" + t.getDuration() + " " + days + ")");
 			if ( t.getEarlyFinish() == t.getLateFinish()){
 				n.setColor(Color.RED);
 			}
-			nodes.put(n.getLabel(), n);
+			nodes.put(t.getLabel(), n);
 		}
 		for (Task t: tasks){
 			for (Task pred: t.getPredecessors()){

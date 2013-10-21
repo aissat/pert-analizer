@@ -111,13 +111,18 @@ public class PERTFileParser {
 			int numberOfStartPoint = 0;
 			int numberOfEndPoint = 0;
 			for (Task t : tasks) {
+				boolean hasPredecessors = true, hasSuccessors = true;
 				if (t.getPredecessors().size() == 0) {
 					numberOfStartPoint++;
+					hasPredecessors = false;
 				}
 
 				if (t.getSuccessors().size() == 0) {
 					numberOfEndPoint++;
+					hasSuccessors = false;
 				}
+				if (!hasSuccessors && !hasPredecessors)
+					throw new RuntimeException("Task has neither predecessors nor successors !");
 			}
 
 			if (numberOfStartPoint > 1)
