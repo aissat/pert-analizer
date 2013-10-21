@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class PERTChart {
 	private java.util.List<Task> tasks = new LinkedList<>();
 	
 
-	public PERTChart(String filePath){
+	public PERTChart(String filePath) throws IllegalArgumentException, IOException, RuntimeException{
 		parser = new PERTFileParser();
 		tasks = parser.parseFile(filePath);
 	}

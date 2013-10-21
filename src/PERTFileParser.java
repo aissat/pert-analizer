@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class PERTFileParser {
 
-	public List<Task> parseFile(String pathToFile) {
+	public List<Task> parseFile(String pathToFile) throws IOException, IllegalArgumentException, RuntimeException {
 
 		String pertFile = pathToFile;
 		
@@ -27,7 +27,6 @@ public class PERTFileParser {
 		String line = "";
 		String separator = ",";
 
-		try {
 			br = new BufferedReader(new FileReader(pertFile));
 			LinkedList<String[]> lines = new LinkedList<>();
 			while ((line = br.readLine()) != null) {
@@ -62,7 +61,10 @@ public class PERTFileParser {
 				}
 			}
 
-			tasks = checkCyclic(tasks);
+			
+			List<Task> reverseList = checkCyclic(tasks);
+			Collections.reverse(reverseList);
+			tasks = reverseList;
 
 			// ====== set start
 			for (Task t : tasks) {
@@ -81,9 +83,9 @@ public class PERTFileParser {
 			}
 
 			// ===== set finish
-			List<Task> reverseList = new ArrayList<Task>(tasks);
-
+			reverseList = new ArrayList<Task>(tasks);
 			Collections.reverse(reverseList);
+			tasks = reverseList;
 
 			for (Task t : reverseList) {
 				t.setLateFinish(maxEarlyFinish);
@@ -124,26 +126,20 @@ public class PERTFileParser {
 			if (numberOfEndPoint > 1)
 				throw new RuntimeException("More than one end point !");
 			
-		} catch (IllegalArgumentException ilex) {
-			System.out.println(ilex.getMessage());
-		} catch (IOException iex) {
-			System.out.println(iex.getMessage());
-		} catch (RuntimeException rex) {
-			System.out.println(rex.getMessage());
-		} finally {
+		
 			try {
 				br.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+
 		return tasks;
 	}
 
 	private List<Task> checkCyclic(List<Task> tasks) {
 
-		HashSet<Task> unsortedList = new HashSet<Task>(tasks);
-		HashSet<Task> sortedList = new HashSet<Task>();
+		List<Task> unsortedList = new ArrayList<Task>(tasks);
+		List<Task> sortedList = new ArrayList<Task>();
 
 		while (!unsortedList.isEmpty()) {
 			boolean progress = false;
@@ -164,7 +160,7 @@ public class PERTFileParser {
 
 		}
 
-		return new LinkedList<Task>(sortedList);
+		return sortedList;
 
 	}
 
