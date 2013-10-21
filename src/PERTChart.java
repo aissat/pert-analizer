@@ -1,7 +1,10 @@
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 
 /**
  * @(#) PERTChart.java
@@ -14,34 +17,47 @@ public class PERTChart
 	
 	private DotGraphviz graph;
 	
-	private java.util.List<Task> tasks;
+	private java.util.List<Task> tasks = new LinkedList<>();
 	
-	public PERTChart(){
-		tasks = new LinkedList<>();
+	public PERTChart(String filePath){
+		parser = new PERTFileParser();
+		try {
+			tasks = parser.parseFile(filePath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public DotGraphviz calculateCriticalPath( )
 	{
-		Map<String, Node> nodes = new HashMap<>();
-		DotGraphviz graph = new DotGraphviz();
-		for (int i = 0; i < tasks.size(); i++){
-			Node n = new Node(i);
-			String days = (tasks.get(i).getDuration() == 0 || tasks.get(i).getDuration() == 1 ? "day" : "days");
-			n.setLabel(tasks.get(i).getLabel() + " (" + tasks.get(i).getDuration() + " " + days + ")");
-			nodes.put(tasks.get(i).getLabel(), n);
-		}
+		List<Task> sortedElements = new ArrayList<Task>();
+		// Not sure !!!!!
+		List<Task> unsortedElements = tasks;
 		
-		for (int i = 0; i < tasks.size(); i++){
-			for (int j = 0; j < tasks.get(i).getPredecessors().size(); j++){
-				Edge e = new Edge();
-				e.setPredecessor(nodes.get(tasks.get(i).getPredecessors().get(j).getLabel()));
-				e.setSuccessor(nodes.get(tasks.get(i).getLabel()));
-				graph.addEdge(e);
+		while(unsortedElements.size() != 0 ){
+			
+			Iterator<Task> i = unsortedElements.iterator();
+			
+			while(i.hasNext()){
+				Task task = i.next();
+				int critical = 0;
+				if(sortedElements.containsAll(task.getPredecessors())){
+					for (Task t : task.getPredecessors()) {
+                        if (t.getCriticalCost() > critical) {
+                            critical = t.getCriticalCost();
+                        }
+                    }
+                    task.setCriticalCost(critical + task.getDuration());
+                    // set task as calculated an remove
+                    sortedElements.add(task);
+                    unsortedElements.remove(task);
+				}
+				
 			}
 		}
-		graph.setNodes(nodes);
 		
-		return graph;
+		return null;
 	}
 	
 	public void setName( String name )
