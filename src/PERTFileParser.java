@@ -54,8 +54,7 @@ public class PERTFileParser {
 				String[] taskInfo = line.split(separator);
 
 				if (taskInfo.length < 2) {
-					throw new IllegalArgumentException(
-							"Error in .pert file !!!");
+					throw new RuntimeException("Error in .pert file.  !");
 				}
 
 				Task task = new Task();
@@ -75,22 +74,36 @@ public class PERTFileParser {
 			}
 
 			setSuccessors();
-			
-			List<Task> data = getTasks();
 			setTasks(topologicalSort());
 			setStart();
 			setFinish();
+			
+			int numberOfStartPoint = 0;
+			int numberOfEndPoint = 0;
+			for(Task t: getTasks()){
+				if(t.getPredecessors().size() == 0){
+					numberOfStartPoint++;
+				}
+				
+				if(t.getSuccessors().size() == 0){
+					numberOfEndPoint ++;
+				}
+			}
+			
+			if(numberOfStartPoint > 1)
+				throw new RuntimeException("More than one start point !");
+			
+			if(numberOfEndPoint > 1)
+				throw new RuntimeException("More than one end point !");
 
-			System.out.println("Max: " + getMaxEarlyFinish());
-
-		} catch (IllegalArgumentException ilex) {
-			System.out.println(ilex.getMessage());
-		} catch (IOException iex) {
-			System.out.println(iex.getMessage());
+		}catch(RuntimeException rex){
+			System.out.println(rex.getMessage());
 		} finally {
 			br.close();
 		}
 	}
+	
+	
 
 	private Task findTaskByName(String name) {
 
@@ -111,7 +124,7 @@ public class PERTFileParser {
 			if (newPredecessor != null) {
 				predecessors.add(newPredecessor);
 			} else {
-				throw new IllegalArgumentException("Error in .pert file !!!");
+				throw new RuntimeException("Error in .pert file !");
 			}
 		}
 
@@ -150,7 +163,7 @@ public class PERTFileParser {
 			}
 			
 			if (!progress)
-				throw new RuntimeException("Cyclic dependency, algorithm stopped!");
+				throw new RuntimeException("Error. Cycle has been detected !");
 
 		}
 
