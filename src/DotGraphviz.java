@@ -41,7 +41,6 @@ public class DotGraphviz
 		graph.append("}");
 		
 		try {
-			System.out.println(graph.toString());
 	        File file = new File(filePath + "/critical_path.dot");
 	        BufferedWriter output = new BufferedWriter(new FileWriter(file));
 	        output.write(graph.toString());
