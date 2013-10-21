@@ -10,8 +10,6 @@ public class Task
 	
 	private int duration;
 	
-	private int criticalCost;
-	
 	private int earlyStart = 0;
 	
 	private int lateStart = 0;
@@ -20,9 +18,9 @@ public class Task
 	
 	private int lateFinish = 0;
 
-	private java.util.HashSet<Task> predecessors = new HashSet<Task>();
+	private java.util.Set<Task> predecessors = new HashSet<Task>();
 	
-	private java.util.HashSet<Task> successors  = new HashSet<Task>();
+	private java.util.Set<Task> successors  = new HashSet<Task>();
 	
 	public int getEarlyStart() {
 		return earlyStart;
@@ -56,19 +54,11 @@ public class Task
 		this.lateFinish = lateFinish;
 	}
 	
-	public int getCriticalCost() {
-		return criticalCost;
-	}
-
-	public void setCriticalCost(int criticalCost) {
-		this.criticalCost = criticalCost;
-	}
-	
-	public java.util.HashSet<Task> getSuccessors() {
+	public java.util.Set<Task> getSuccessors() {
 		return successors;
 	}
 
-	public void setSuccessors(java.util.HashSet<Task> successors) {
+	public void setSuccessors(java.util.Set<Task> successors) {
 		this.successors = successors;
 	}
 	
@@ -98,13 +88,13 @@ public String getLabel( )
 	}
 	
 	
-	public void setPredecessors( java.util.HashSet<Task> predecessors )
+	public void setPredecessors( java.util.Set<Task> predecessors )
 	{
 		this.predecessors=predecessors;
 	}
 	
 	
-	public java.util.HashSet<Task> getPredecessors( )
+	public java.util.Set<Task> getPredecessors( )
 	{
 		return predecessors;
 	}
