@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String ... args){
 		
 		try{
-			String filePath = /*args[0]*/"D:\\tartuUniversity\\tasks.txt";
+			String filePath = args[0];
 			PERTChart chart = new PERTChart(filePath);
 			String [] pathParts = filePath.split("\\");
 			chart.calculateCriticalPath().generateFile(pathParts[pathParts.length - 1]);
