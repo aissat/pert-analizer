@@ -27,8 +27,10 @@ public class PERTFileParser {
 		String line = "";
 		String separator = ",";
 
+		LinkedList<String[]> lines = new LinkedList<>();
+		try{
 			br = new BufferedReader(new FileReader(pertFile));
-			LinkedList<String[]> lines = new LinkedList<>();
+			
 			while ((line = br.readLine()) != null) {
 				String[] taskInfo = line.split(separator);
 				if (taskInfo.length < 2) {
@@ -36,6 +38,11 @@ public class PERTFileParser {
 				}
 				lines.add(taskInfo);
 			}
+			
+		}finally {
+			br.close();
+	    }
+			
 			for (String[] t : lines) {
 				Task task = new Task();
 				task.setDuration(Integer.parseInt(t[1]));
@@ -132,11 +139,7 @@ public class PERTFileParser {
 				throw new RuntimeException("More than one end point !");
 			
 		
-			try {
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
 
 		return tasks;
 	}
